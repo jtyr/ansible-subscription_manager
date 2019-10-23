@@ -1,0 +1,49 @@
+---
+
+- name: Test distribution
+  assert:
+    that: >
+      ansible_facts.distribution == 'RedHat'
+    fail_msg: This role should be run only on RHEL.
+  tags:
+    - subscription_manager_assert
+    - subscription_manager_assert_distro
+
+- name: Test RHSM credentials
+  assert:
+    that: >
+      subscription_manager_rhsm_user != None and
+      subscription_manager_rhsm_pass != None
+    fail_msg: >
+      RHSM credentials must be defined
+      (use subscription_manager_rhsm_user and subscription_manager_rhsm_pass variables).
+  tags:
+    - subscription_manager_assert
+    - subscription_manager_assert_creds
+
+- name: "{{ 'Register and subscribe to' if subscription_manager_state == 'present' else 'Unregister from' }} RHSM"
+  redhat_subscription:
+    activationkey: "{{ subscription_manager_activationkey | default(omit)}}"
+    auto_attach: "{{ subscription_manager_auto_attach if subscription_manager_state == 'present' else omit }}"
+    consumer_id: "{{ ubscription_manager_consumer_id| default(omit) }}"
+    consumer_name: "{{ ubscription_manager_consumer_name | default(omit) }}"
+    consumer_type: "{{ ubscription_manager_consumer_type | default(omit) }}"
+    environment: "{{ ubscription_manager_environment | default(omit) }}"
+    force_register: "{{ ubscription_manager_force_register | default(omit) }}"
+    org_id: "{{ ubscription_manager_org_id | default(omit) }}"
+    password: "{{ subscription_manager_rhsm_pass }}"
+    pool_ids: "{{ ubscription_manager_pool_ids | default(omit) }}"
+    pool: "{{ ubscription_manager_pool | default(omit) }}"
+    release: "{{ ubscription_manager_release | default(omit) }}"
+    rhsm_baseurl: "{{ ubscription_manager_rhsm_baseurl | default(omit) }}"
+    rhsm_repo_ca_cert: "{{ ubscription_manager_rhsm_repo_ca_cert | default(omit) }}"
+    server_hostname: "{{ ubscription_manager_server_hostname | default(omit) }}"
+    server_insecure: "{{ ubscription_manager_server_insecure | default(omit) }}"
+    server_proxy_hostname: "{{ ubscription_manager_server_proxy_hostname | default(omit) }}"
+    server_proxy_password: "{{ ubscription_manager_server_proxy_password | default(omit) }}"
+    server_proxy_port: "{{ ubscription_manager_server_proxy_port | default(omit) }}"
+    server_proxy_user: "{{ ubscription_manager_server_proxy_user | default(omit) }}"
+    state: "{{ subscription_manager_state }}"
+    username: "{{ subscription_manager_rhsm_user }}"
+  tags:
+    - subscription_manager_rhsm

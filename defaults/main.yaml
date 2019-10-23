@@ -1,0 +1,31 @@
+---
+
+# RHSM credentials (must be provided by the user)
+subscription_manager_rhsm_user: null
+subscription_manager_rhsm_pass: null
+
+# Default state (set to absent to unregister from RHSM)
+subscription_manager_state: present
+
+# Whether to auto attach
+subscription_manager_auto_attach: yes
+
+# Other optional paramets
+#subscription_manager_activationkey: null
+#subscription_manager_consumer_id: null
+#subscription_manager_consumer_name: null
+#subscription_manager_consumer_type: null
+#subscription_manager_environment: null
+#subscription_manager_force_register: null
+#subscription_manager_org_id: null
+#subscription_manager_pool_ids: null
+#subscription_manager_pool: null
+#subscription_manager_release: null
+#subscription_manager_rhsm_baseurl: null
+#subscription_manager_rhsm_repo_ca_cert: null
+#subscription_manager_server_hostname: null
+#subscription_manager_server_insecure: null
+#subscription_manager_server_proxy_hostname: null
+#subscription_manager_server_proxy_password: null
+#subscription_manager_server_proxy_port: null
+#subscription_manager_server_proxy_user: null
